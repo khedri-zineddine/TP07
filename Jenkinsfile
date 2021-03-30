@@ -37,14 +37,14 @@ pipeline {
       }
     }
 
-    /*stage('Deployement') {
+    stage('Deployement') {
       when {
         branch 'master'
       }
       steps {
         bat 'gradle publish'
       }
-    }*/
+    }
 
     stage('Slack notification') {
       when {
