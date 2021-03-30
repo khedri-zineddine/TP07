@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.sonarqube' version "3.1.1"
+    id 'maven'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:6.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:6.0.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+
+}
+
+apply plugin: 'maven-publish'
+
+group = 'com.tp07'
+version = 'first'
+
+publishing {
+    repositories {
+        maven {
+            url 'https://mymavenrepo.com/repo/fQs6NCGpkMf2HbVBrf2X/'
+            credentials {
+                username 'myMavenRepo'
+                password 'zino'
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+task archiveJar(type:Zip){
+    baseName = "archiveJar"
+    destinationDir = file("archiveJar")
+    from  "build/libs/"
+}
+task archiveDoc(type:Zip){
+    baseName = "archiveDoc"
+    destinationDir = file("archiveDoc")
+    from  "build/docs/"
+}
+task archiveTestsResults(type:Zip){
+    baseName="archiveTestsResults"
+    destinationDir = file("archiveTestsResults")
+    from 'test-results/test/'
+}
